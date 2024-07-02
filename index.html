@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textapp</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <p class="top">Server</p>
+    <div class="container" id="messages">
+
+    </div>
+    <form class="form">
+        <input type="text" placeholder="Typ here your message" class="input" name="Message">
+        <button type="button" class="btn">Send</button>
+    </form>
+</body>
+<script>
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const ipToSend = "http://10.30.160.226:8001/message";
+    const ipToReceive = "http://10.30.160.226:8001/messages";
+    document.querySelector(".btn").addEventListener("click", Send);
+    function Send() {
+        fetch(ipToSend, {
+            method: "POST",
+            body: JSON.stringify({
+                "author": "Bram Matthys",
+                "message": document.querySelector(".input").value
+            }),
+            headers: myHeaders
+        })
+    }
+    function Get() {
+        fetch(ipToReceive)
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    }
+
+    Get();
+
+</script>
+
+</html>

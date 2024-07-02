@@ -1,0 +1,61 @@
+.top {
+    background-color: #D2D2D2;
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+    flex-grow: 0;
+    margin: 0;
+
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+
+input {
+    width: 90%;
+    height: 20px;
+    border: #D2D2D2 1px solid;
+    border-radius: 10px;
+    margin: 0%;
+}
+
+button {
+    width: 10%;
+    border: #D2D2D2 1px solid;
+    border-radius: 10px;
+    margin: 0%;
+}
+
+.form {
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.container {
+    display: block;
+
+    margin: 0;
+    background-color: hotpink;
+    /* min-height: 30%;  */
+
+    /* align-self: ; */
+    /* justify-self: stretch; */
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap ;
+    /* justify-content: start; */
+    /* align-content: stretch; */
+    flex-direction: row;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+}
+
+body * {
+    flex-grow: 0;
+    width: 100%;
+}
