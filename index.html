@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
+<body id="columns-1">
     <p class="top">Server</p>
     <div class="container" id="messages">
 
@@ -37,9 +37,19 @@
     }
     function Get() {
         fetch(ipToReceive)
-        .then((response) => response.json())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+            .then((response) => response.json())
+            .then((result) => toonMessages(result))
+            .catch((error) => console.error(error));
+    }
+
+    function toonMessages(messages) {
+        console.log(messages);
+        const container = document.querySelector(".container");
+        for (let i = 0; i <= messages.length; i++) {
+            const message= messages[i];
+            const messageElement = `<p>${message.author} om ${message.timestamp}: ${message.message}</p>`
+            container.innerHTML += messageElement;
+        }
     }
 
     Get();
