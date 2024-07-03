@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Textapp</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="manifest" href="./manifest.json">
 </head>
 
 <body id="columns-1">
@@ -13,7 +14,7 @@
     <div class="container" id="messages">
 
     </div>
-    <form class="form">
+    <form class="form" id="form">
         <input type="text" placeholder="Typ here your message" class="input" name="Message">
         <button type="button" class="btn">Send</button>
     </form>
@@ -22,10 +23,19 @@
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const ipToSend = "http://10.30.160.226:8001/message";
-    const ipToReceive = "http://10.30.160.226:8001/messages";
+    const ipToSend = "http://topvak-chatapp-env.eba-37rjgxaz.eu-west-1.elasticbeanstalk.com/message";
+    const ipToReceive = "http://topvak-chatapp-env.eba-37rjgxaz.eu-west-1.elasticbeanstalk.com/messages";
     document.querySelector(".btn").addEventListener("click", Send);
+    document.querySelector("#form").addEventListener("submit", SendForm);
+
+    function SendForm(event) {
+        event.preventDefault();
+        Send();
+        document.querySelector(".input").value = "";
+
+    }
     function Send() {
+        scrollBy(0, 200);
         fetch(ipToSend, {
             method: "POST",
             body: JSON.stringify({
@@ -34,6 +44,7 @@
             }),
             headers: myHeaders
         })
+        document.querySelector(".input").value = "";
     }
     function Get() {
         fetch(ipToReceive)
@@ -45,14 +56,23 @@
     function toonMessages(messages) {
         console.log(messages);
         const container = document.querySelector(".container");
-        for (let i = 0; i <= messages.length; i++) {
-            const message= messages[i];
-            const messageElement = `<p>${message.author} om ${message.timestamp}: ${message.message}</p>`
-            container.innerHTML += messageElement;
-        }
-    }
+        container.innerHTML = '';
+        for (let i = 0; i < messages.length; i++) {
+            const message = messages[i];
+            if (message.author == "Bram Matthys") {
+                const messageElement = `<p class="messageYourself">${message.timestamp}: ${message.message}</p>`;
+                container.innerHTML += messageElement;
+            } else {
+                const messageElement = `<p class="message1">${message.author} om ${message.timestamp}: ${message.message}</p>`;
+                container.innerHTML += messageElement;
+            }
 
-    Get();
+        }
+        
+    }
+    setInterval(Get, 1000);
+
+    
 
 </script>
 

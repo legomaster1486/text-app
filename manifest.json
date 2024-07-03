@@ -1,0 +1,12 @@
+{
+    "name": "Whatsapp 2.0",
+    "short_name": "2.0",
+    "description": "Eigen Whatsapp",
+    "scope": "./",
+    "start_url": "./",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "display": "fullscreen",
+    "display_override": ["standalone"],
+    "icons": []
+}
